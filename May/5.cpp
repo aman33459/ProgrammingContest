@@ -1,12 +1,11 @@
 class Solution {
 public:
-    int firstUniqChar(string s) {
-        map < char , int > sd;
-        for(auto i : s) sd[i]++;
-        for(int  i = 0 ; i < s.size() ;i++){
-            if(sd[s[i]] == 1) return i;
+    int majorityElement(vector<int>& nums) {
+        map< int , int > sd;
+        for(auto i:nums) sd[i]++;
+        for(auto i : sd){
+            if(i.second > (nums.size()/2)) return i.first;
         }
-        return -1;
+        return 0;
     }
 };
-
