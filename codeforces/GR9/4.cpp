@@ -40,38 +40,60 @@ int gcd(int a , int b){
         return a; 
     return gcd(b, a % b);
 }
-
-typedef struct Trie{
-
-  int a;
-  unordered_map < Trie * , int > points; 
-} trie;
-int cnt[20]={0};
+struct compare{
+  bool operator()(const pair < int , int > &a , const pair < int , int > &b){
+    if(a.first < b.first) return true;
+    else if(a.first == b.first) {
+      if(a.second < b.second) return true;
+      else return false;
+    }
+    else return false;
+  }
+};
 int32_t main() 
 { 
   fast;
-  int n;
-  cin >> n;
-  vector < int > a(n);
-  for(int i = 0 ; i < n ; i++){
-    cin >> a[i];
-    for(int k = 0 ; k < 20 ; k++) {
-      if(a[i] & (1LL<<k)) cnt[k]++;
-    }
-  }
-  int ans = 0;
-  for(int i = 0 ; i < n ; i++){
-    int temp = 0;
-    for(int j = 0 ; j < 20 ; j++){
-      if(cnt[j]){
-        cnt[j]--;
-        temp = temp + (1LL<<j);
+  int t;
+  cin >> t;
+  while(t--){
+    int n;
+    cin >> n;
+    vector < int > a(n);
+    vector < int > ans;
+    for(int i = 0 ; i < n ; i++) cin >> a[i];
+    unordered_map < int , int > visited;
+    for(int cnt = 0 ; cnt < 2*n ; cnt++){
+      int res;
+      unordered_map < int, int > sd;
+      for(int i = 0 ; i < n ; i++) {
+        sd[a[i]]++;
       }
-     }
-     ans = ans + temp*temp;
-  } 
-  cout << ans << "\n";
-
+      for(int i = 0 ; i <=n ; i++){
+        if(sd[i] == 0) {
+          res = i;
+          break;
+        }
+      }
+      if(res == n){
+        int ok=0;
+        for(int i = 0 ; i < n ; i++) {
+          if(visited[a[i]] == 0){
+            visited[a[i]]=1;
+            ans.push_back(i+1);
+            a[i] = n;
+            ok++;
+            break;
+          }
+        }
+        if(!ok){
+          ans.push_back(n); a[n-1] = n;
+        }
+      }
+      else{ ans.push_back(res+1); a[res] =res; visited[res]++;}
+  }
+  cout << ans.size() << "\n";
+  for(auto i : ans) cout << i << " ";
+    cout << "\n";
+  }
   return 0; 
 }
-

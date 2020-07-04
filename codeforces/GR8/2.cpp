@@ -40,28 +40,28 @@ int gcd(int a , int b){
         return a; 
     return gcd(b, a % b);
 }
-bool prime(int n){
-  for(int i =2 ; i <=sqrt(n) ; i++){
-    if(n%i == 0) return false;
-  }
-  return true;
-}
+
 int32_t main() 
 { 
   fast;
-  int t;
-  cin >> t;
-  while(t--){
-    int n;
-    cin >> n;
-    vector < int > a(n);
-    vector < pair < int  , int > > sd;
-    vector < bool> ok(n,true);
-    for(int i = 0 ; i < n ; i++) cin >> a[i];
-    int k = a[n-1];
-    if(a[n-1] > a[0]) cout << "YES\n";
-    else cout << "NO\n";
+  int k;
+  cin >> k;
+  vector < int > ans(10,1);
+  string tmp = "codeforces";
+  int sub  = 1;
+  int i = 0;
+  while(sub<k){
+    if(i>=10) i =0;
+    ans[i]++;
+    sub = (sub/(ans[i]-1))*ans[i];
+    //cout << sub << "++\n";
+    i++;
   }
+  string res ="";
+  for(int i = 0 ; i < 10; i++){
+    for(int j = 0 ; j < ans[i] ; j++) res= res + tmp[i];
+  }
+  cout << res << "\n";  
   return 0; 
 }
 

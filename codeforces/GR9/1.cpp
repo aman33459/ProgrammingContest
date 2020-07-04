@@ -40,28 +40,24 @@ int gcd(int a , int b){
         return a; 
     return gcd(b, a % b);
 }
-
 int32_t main() 
 { 
   fast;
   int t;
   cin >> t;
   while(t--){
-    int x,y,n;
-    cin >> x >> y >> n;
-    int a = min(x,y);
-    int b =  max(x,y);
-    int ans = 0;
-    int f=0;
-    while(a <= n && b<=n ){
-      ans++;
-      if(!f) a=a+b;
-      else b = a+b;
-      f=1-f;
-      //cout << a << " " <<  b << "**\n";
-    }
-    cout << ans << "\n";
+    int n;
+    cin >> n;
+    vector <int >a(n);
+    int tmp=0;
+    for(int i = 0 ; i < n ; i++) cin >> a[i];
+    for(int i = 0 ; i < n ; i++) a[i] = abs(a[i]);
+    for(int i = 0 ; i < n ; i+=2) a[i] = -1*a[i];
+    for(auto i : a) cout << i << " ";
+    //for(auto i : a) cout << i << " ";
+    cout << "\n";
   }
+
   return 0; 
 }
 

@@ -40,28 +40,38 @@ int gcd(int a , int b){
         return a; 
     return gcd(b, a % b);
 }
-bool prime(int n){
-  for(int i =2 ; i <=sqrt(n) ; i++){
-    if(n%i == 0) return false;
-  }
-  return true;
-}
+
+typedef struct Trie{
+
+  int a;
+  unordered_map < Trie * , int > points; 
+} trie;
+int cnt[20]={0};
 int32_t main() 
 { 
   fast;
-  int t;
-  cin >> t;
-  while(t--){
-    int n;
-    cin >> n;
-    vector < int > a(n);
-    vector < pair < int  , int > > sd;
-    vector < bool> ok(n,true);
-    for(int i = 0 ; i < n ; i++) cin >> a[i];
-    int k = a[n-1];
-    if(a[n-1] > a[0]) cout << "YES\n";
-    else cout << "NO\n";
+  int n;
+  cin >> n;
+  vector < int > a(n);
+  for(int i = 0 ; i < n ; i++){
+    cin >> a[i];
+    for(int k = 0 ; k < 20 ; k++) {
+      if(a[i] & (1LL<<k)) cnt[k]++;
+    }
   }
+  int ans = 0;
+  for(int i = 0 ; i < n ; i++){
+    int temp = 0;
+    for(int j = 0 ; j < 20 ; j++){
+      if(cnt[j]){
+        cnt[j]--;
+        temp = temp + (1LL<<j);
+      }
+     }
+     ans = ans + temp*temp;
+  } 
+  cout << ans << "\n";
+
   return 0; 
 }
 

@@ -40,28 +40,35 @@ int gcd(int a , int b){
         return a; 
     return gcd(b, a % b);
 }
-bool prime(int n){
-  for(int i =2 ; i <=sqrt(n) ; i++){
-    if(n%i == 0) return false;
-  }
-  return true;
-}
+
 int32_t main() 
 { 
   fast;
-  int t;
-  cin >> t;
-  while(t--){
-    int n;
-    cin >> n;
-    vector < int > a(n);
-    vector < pair < int  , int > > sd;
-    vector < bool> ok(n,true);
-    for(int i = 0 ; i < n ; i++) cin >> a[i];
-    int k = a[n-1];
-    if(a[n-1] > a[0]) cout << "YES\n";
-    else cout << "NO\n";
+  int k;
+  cin >> k;
+  vector< pair < int , int > > ans;
+  ans.push_back({0,0});
+  ans.push_back({0,1});
+  ans.push_back({1,0});
+  ans.push_back({1,1});
+
+  ans.push_back({2,1});
+  ans.push_back({1,2});
+  ans.push_back({2,2});
+  int cnt = 1;
+  int x = 2;
+  int y = 2;
+  while(cnt < k){
+      ans.push_back({x+1,y});
+      ans.push_back({x,y+1});
+      x++;
+      y++;
+      ans.push_back({x,y});
+      cnt++;
   }
+  cout << ans.size() << "\n";
+  for(auto i : ans) cout << i.first << " " << i.second << "\n";
+
   return 0; 
 }
 
